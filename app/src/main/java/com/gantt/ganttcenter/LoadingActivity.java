@@ -2,6 +2,8 @@ package com.gantt.ganttcenter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.gantt.ganttcenter.JSONParser;
@@ -16,6 +18,8 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        Log.v("Here","HERE");
+
         Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
@@ -26,6 +30,16 @@ public class LoadingActivity extends Activity {
                     try
                     {
                         JSONObject jsonObject = new JSONObject(jsonString);
+                        HBGCAppManager.AppManager().didParseResponse(jsonObject);
+
+                        LoadingActivity.this.runOnUiThread(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                LoadingActivity.this.moveToLanding();
+                            }
+                        });
                     }
                     catch(Exception e){e.printStackTrace();
                     }
@@ -36,8 +50,6 @@ public class LoadingActivity extends Activity {
         });
 
         thread.start();
-
-
     }
 
 
@@ -61,5 +73,12 @@ public class LoadingActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void moveToLanding()
+    {
+        Intent i = new Intent(LoadingActivity.this, LandingPage.class);
+        startActivity(i);
+        finish(); //should use the finish if you need to preserve memory
     }
 }

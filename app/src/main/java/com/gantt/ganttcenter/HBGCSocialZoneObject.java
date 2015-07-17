@@ -32,6 +32,8 @@ public class HBGCSocialZoneObject extends HBGCZoneObject {
 
     private void parseNetworks(JSONArray networks)
     {
+        this.setSocialNetworks(new ArrayList<HBGCSocialNetworkObject>());
+
         for(int i = 0; i < networks.length(); i++)
         {
             try

@@ -1,7 +1,6 @@
 package com.gantt.ganttcenter;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.GridView;
 
 
 public class LandingPage extends Activity {
@@ -23,6 +22,9 @@ public class LandingPage extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        GridView gridView = (GridView)findViewById(R.id.gridview);
+        gridView.setAdapter(new HBGCLandingPageAdapter(this));
     }
 
 

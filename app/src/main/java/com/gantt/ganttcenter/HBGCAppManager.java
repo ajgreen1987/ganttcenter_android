@@ -1,11 +1,15 @@
 package com.gantt.ganttcenter;
 
-import android.app.AppOpsManager;
+import android.graphics.drawable.Drawable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -47,6 +51,9 @@ public class HBGCAppManager
         {
             this.setCurrentEvents(json.getJSONArray(Constants.UPCOMING_EVENTS_KEY));
             this.setCurrentZones(json.getJSONArray(Constants.ZONES_KEY));
+
+            this.buildOutUpcomingEvents();
+            this.parseOutZones();
         }
         catch(JSONException e) {
 
@@ -66,8 +73,12 @@ public class HBGCAppManager
          */
     }
 
+
+
     private void buildOutUpcomingEvents()
     {
+        this.setEvents(new ArrayList<HBGCEventObject>());
+
         for(int i = 0; i < this.getCurrentEvents().length(); i++)
         {
             try
@@ -90,6 +101,8 @@ public class HBGCAppManager
 
     private void parseOutZones()
     {
+        this.setZones(new ArrayList<HBGCZoneObject>());
+
         if (this.getCurrentZones().length()>0)
         {
             for(int i = 0; i < this.getCurrentZones().length(); i++)
@@ -143,7 +156,24 @@ public class HBGCAppManager
          */
     }
 
+    /** Returns a Drawable object containing the image located at 'imageWebAddress' if successful, and null otherwise.
+     * (Pre: 'imageWebAddress' is non-null and non-empty;
+     * method should not be called from the main/ui thread.)*/
+    public static Drawable createDrawableFromUrl(String imageWebAddress)
+    {
+        Drawable drawable = null;
 
+        try
+        {
+            InputStream inputStream = new URL(imageWebAddress).openStream();
+            drawable = Drawable.createFromStream(inputStream, null);
+            inputStream.close();
+        }
+        catch (MalformedURLException ex) { }
+        catch (IOException ex) { }
+
+        return drawable;
+    }
 
     public JSONObject getCurrentJSON() {
         return currentJSON;
@@ -184,4 +214,6 @@ public class HBGCAppManager
     public void setZones(ArrayList<HBGCZoneObject> zones) {
         this.zones = zones;
     }
+
+
 }

@@ -76,6 +76,8 @@ public class HBGCZoneObject {
 
     private void parseOutHeaders(JSONArray headers)
     {
+        this.setHeaderImages(new ArrayList<String>());
+
         for(int i = 0; i < headers.length(); i++)
         {
             try
@@ -92,6 +94,8 @@ public class HBGCZoneObject {
 
     private void parseOutContent(JSONArray content)
     {
+        this.setContent(new ArrayList<HBGCContentObject>());
+
         for (int i=0;i<content.length();i++) {
             try {
                 JSONObject json = content.getJSONObject(i);
