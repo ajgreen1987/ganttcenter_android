@@ -25,6 +25,7 @@ public class HBGCAppManager
 @property (nonatomic, strong) NSMutableArray *events;
      */
 
+    private int currentlySelectedZone;
     private JSONObject currentJSON;
     private JSONArray currentEvents;
     private JSONArray currentZones;
@@ -215,5 +216,13 @@ public class HBGCAppManager
         this.zones = zones;
     }
 
+    public int getCurrentlySelectedZone()
+    {
+        return currentlySelectedZone;
+    }
 
+    public void setCurrentlySelectedZone(int currentlySelectedZone)
+    {
+        this.currentlySelectedZone = currentlySelectedZone;
+    }
 }

@@ -87,9 +87,9 @@ public class LandingPage extends Activity {
         {
             AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.autoscroll);
 
-            pager.setAdapter(new ImagePagerAdapter(getActivity(),HBGCAppManager.AppManager().getEvents()));
+            pager.setAdapter(new HBGCEventHeaderPagerAdapter(getActivity(),HBGCAppManager.AppManager().getEvents()));
 
-            pager.setInterval(2000);
+            pager.setInterval(9000);
             pager.startAutoScroll();
 
         }

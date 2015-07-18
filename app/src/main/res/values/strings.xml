@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_loading">LoadingActivity</string>
     <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_hbgcsocial">HBGCSocialActivity</string>
+    <string name="title_activity_hbgczone">HBGCZoneActivity</string>
 
 </resources>

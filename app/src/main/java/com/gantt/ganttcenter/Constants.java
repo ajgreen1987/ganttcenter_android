@@ -5,6 +5,8 @@ package com.gantt.ganttcenter;
  */
 public class Constants {
 
+    public static String ADDRESS = "551+South+Tryon+St,+Charlotte,+NC";
+
     public static String CUSTOM_FONT_NAME ="SemplicitaPro-Bold";
 public static String CUSTOM_FONT_NAME2 ="SemplicitaPro-Medium";
 

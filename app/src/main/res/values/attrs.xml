@@ -7,4 +7,14 @@
     <declare-styleable name="CustomTheme">
         <attr name="gifMoviewViewStyle" format="reference" />
     </declare-styleable>
+
+
+        <declare-styleable name="HBGCExpandableTextView">
+            <attr name="maxCollapsedLines" format="integer"/>
+            <attr name="animDuration" format="integer"/>
+            <attr name="animAlphaStart" format="float"/>
+            <attr name="expandDrawable" format="reference"/>
+            <attr name="collapseDrawable" format="reference"/>
+        </declare-styleable>
+
 </resources>

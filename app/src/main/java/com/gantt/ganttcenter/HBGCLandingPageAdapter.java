@@ -1,6 +1,7 @@
 package com.gantt.ganttcenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,12 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
 {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
+    private Context mContext;
 
     public HBGCLandingPageAdapter(Context context, ArrayList<HBGCZoneObject> urls)
     {
-        mInflater = LayoutInflater.from(context);
+        mContext = context;
+        mInflater = LayoutInflater.from(mContext);
 
         for (int i = 0; i < urls.size(); i++)
         {
@@ -64,7 +67,32 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
         Item item = getItem(i);
 
         picture.setImageDrawable(item.drawable);
+        picture.setId(i);
         name.setText(item.name);
+
+        picture.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                HBGCAppManager.AppManager().setCurrentlySelectedZone(v.getId());
+                // Launch the appropriate Zone (Regular or Social(
+                HBGCZoneObject zone = HBGCAppManager.AppManager().getZones().get(v.getId());
+
+                if (zone.getClass().equals(HBGCSocialZoneObject.class))
+                {
+                    // Launch social activity
+                    Intent i = new Intent(mContext, HBGCSocialActivity.class);
+                    mContext.startActivity(i);
+                }
+                else
+                {
+                    // Launch regular activity
+                    Intent i = new Intent(mContext, HBGCZoneActivity.class);
+                    mContext.startActivity(i);
+                }
+            }
+        });
 
         return v;
     }

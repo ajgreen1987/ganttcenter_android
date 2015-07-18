@@ -16,7 +16,7 @@ public class HBGCZoneObject {
     private String thumbnailUrl;
     private Drawable thumbnail;
     private String zoneDescription;
-    private ArrayList<String> headerImages;
+    private ArrayList<Drawable> headerImages;
     private ArrayList<HBGCContentObject> content;
     private String zoneTitle;
 
@@ -77,11 +77,11 @@ public class HBGCZoneObject {
         this.zoneDescription = zoneDescription;
     }
 
-    public ArrayList<String> getHeaderImages() {
+    public ArrayList<Drawable> getHeaderImages() {
         return headerImages;
     }
 
-    public void setHeaderImages(ArrayList<String> headerImages) {
+    public void setHeaderImages(ArrayList<Drawable> headerImages) {
         this.headerImages = headerImages;
     }
 
@@ -103,18 +103,29 @@ public class HBGCZoneObject {
 
     private void parseOutHeaders(JSONArray headers)
     {
-        this.setHeaderImages(new ArrayList<String>());
+        this.setHeaderImages(new ArrayList<Drawable>());
 
         for(int i = 0; i < headers.length(); i++)
         {
             try
             {
                 JSONObject website = headers.getJSONObject(i);
-                String url = website.getString(Constants.WEBSITE_KEY);
-                this.getHeaderImages().add(url);
+                final String url = website.getString(Constants.WEBSITE_KEY);
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        HBGCZoneObject.this.getHeaderImages().add(HBGCAppManager.createDrawableFromUrl(url));
+                    }
+                });
+                thread.start();
+                thread.join();
             }
             catch(JSONException e)
             {
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
         }
     }

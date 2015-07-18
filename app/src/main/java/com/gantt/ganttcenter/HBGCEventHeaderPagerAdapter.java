@@ -14,13 +14,12 @@ import java.util.ArrayList;
 /**
  * Created by dzqbdf on 7/17/15.
  */
-public class ImagePagerAdapter extends PagerAdapter
+public class HBGCEventHeaderPagerAdapter extends PagerAdapter
 {
     private Context mContext;
     private ArrayList<HBGCEventObject> mHeaders;
 
-
-    public ImagePagerAdapter(Context context, ArrayList<HBGCEventObject> headers)
+    public HBGCEventHeaderPagerAdapter(Context context, ArrayList<HBGCEventObject> headers)
     {
         this.mContext = context;
         this.mHeaders = headers;

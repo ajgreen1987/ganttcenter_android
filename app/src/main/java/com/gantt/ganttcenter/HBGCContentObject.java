@@ -1,6 +1,6 @@
 package com.gantt.ganttcenter;
 
-import android.media.Image;
+import android.graphics.drawable.Drawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +13,7 @@ public class HBGCContentObject {
 
 
     private String thumbnailURL;
+    private Drawable thumbnail;
     private String titleText;
     private String contentURL;
 
@@ -23,6 +24,24 @@ public class HBGCContentObject {
             this.setThumbnailURL(json.getString(Constants.THUMBNAIL_KEY));
             this.setTitleText(json.getString(Constants.TITLE_KEY));
             this.setContentURL(json.getString(Constants.URL_KEY));
+
+            try {
+
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        HBGCContentObject.this.setThumbnail(HBGCAppManager.createDrawableFromUrl(HBGCContentObject.this.getThumbnailURL()));
+                    }
+                });
+
+                thread.start();
+                thread.join();
+
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
         catch(JSONException e)
         {
@@ -36,6 +55,16 @@ public class HBGCContentObject {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public Drawable getThumbnail()
+    {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Drawable thumbnail)
+    {
+        this.thumbnail = thumbnail;
     }
 
     public String getTitleText() {
