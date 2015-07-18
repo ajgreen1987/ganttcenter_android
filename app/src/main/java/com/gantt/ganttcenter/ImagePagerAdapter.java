@@ -1,6 +1,8 @@
 package com.gantt.ganttcenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -55,8 +57,21 @@ public class ImagePagerAdapter extends PagerAdapter
             HBGCEventObject currentHeader = this.mHeaders.get(position);
 
             imageView.setImageDrawable(currentHeader.getThumbnail());
+            imageView.setId(position);
 
-            ((ViewPager) container).addView(imageView,0);
+            imageView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    HBGCEventObject currentEvent = mHeaders.get(v.getId());
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(currentEvent.getWebsite()));
+                    mContext.startActivity(i);
+                }
+            });
+
+            ((ViewPager) container).addView(imageView, 0);
             return imageView;
         }
 

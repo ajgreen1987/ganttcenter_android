@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
@@ -25,13 +25,13 @@
             android:src="@drawable/infobutton"/>
     </RelativeLayout>
     <com.gantt.ganttcenter.AutoScrollViewPager
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/autoscroll">
         </com.gantt.ganttcenter.AutoScrollViewPager>
     <GridView
         android:id="@+id/gridview"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"

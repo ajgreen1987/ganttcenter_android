@@ -2,6 +2,7 @@ package com.gantt.ganttcenter;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageButton;
 
 
 public class LandingPage extends Activity {
@@ -65,6 +67,18 @@ public class LandingPage extends Activity {
             gridView.setAdapter(new HBGCLandingPageAdapter(getActivity(),HBGCAppManager.AppManager().getZones()));
 
             this.setupLandingPageHeaderScroll(rootView);
+
+            ImageButton button = (ImageButton)rootView.findViewById(R.id.imageButton);
+
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent i = new Intent(getActivity(), HBGCInfoActivity.class);
+                    startActivity(i);
+                }
+            });
 
             return rootView;
         }
