@@ -1,6 +1,7 @@
 package com.gantt.ganttcenter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +20,16 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
 
-    public HBGCLandingPageAdapter(Context context, ArrayList<String> urls)
+    public HBGCLandingPageAdapter(Context context, ArrayList<HBGCZoneObject> urls)
     {
         mInflater = LayoutInflater.from(context);
 
         for (int i = 0; i < urls.size(); i++)
         {
-            mItems.add(new Item("", HBGCAppManager.createDrawableFromUrl(urls.get(i))));
+            HBGCZoneObject currentZone = urls.get(i);
+            Drawable thumbnail = currentZone.getThumbnail();
+            mItems.add(new Item(currentZone.getZoneTitle(), currentZone.getThumbnail(),i));
         }
-        mItems.add(new Item("Red",       R.drawable.red));
-        mItems.add(new Item("Magenta",   R.drawable.magenta));
-        mItems.add(new Item("Dark Gray", R.drawable.dark_gray));
-        mItems.add(new Item("Gray",      R.drawable.gray));
-        mItems.add(new Item("Green",     R.drawable.green));
-        mItems.add(new Item("Cyan",      R.drawable.cyan));
     }
 
     @Override
@@ -46,9 +43,7 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
     }
 
     @Override
-    public long getItemId(int i) {
-        return mItems.get(i).drawableId;
-    }
+    public long getItemId(int i){return mItems.get(i).drawID;}
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -56,7 +51,8 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
         ImageView picture;
         TextView name;
 
-        if (v == null) {
+        if (v == null)
+        {
             v = mInflater.inflate(R.layout.grid_item, viewGroup, false);
             v.setTag(R.id.picture, v.findViewById(R.id.picture));
             v.setTag(R.id.text, v.findViewById(R.id.text));
@@ -67,7 +63,7 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
 
         Item item = getItem(i);
 
-        picture.setImageResource(item.drawableId);
+        picture.setImageDrawable(item.drawable);
         name.setText(item.name);
 
         return v;
@@ -75,11 +71,13 @@ public class HBGCLandingPageAdapter  extends BaseAdapter
 
     private static class Item {
         public final String name;
-        public final int drawableId;
+        public final Drawable drawable;
+        public final int drawID;
 
-        Item(String name, int drawableId) {
+        Item(String name, Drawable draw, int drawID) {
             this.name = name;
-            this.drawableId = drawableId;
+            this.drawable = draw;
+            this.drawID = drawID;
         }
     }
 }

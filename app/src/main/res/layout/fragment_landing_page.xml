@@ -1,11 +1,34 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".LandingPage$PlaceholderFragment">
+    android:layout_height="match_parent"
+    tools:context=".LandingPage$PlaceholderFragment"
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/headerlogo"/>
+
+        <ImageButton
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/imageView"
+            android:src="@drawable/infobutton"/>
+    </RelativeLayout>
+    <com.gantt.ganttcenter.AutoScrollViewPager
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/autoscroll">
+        </com.gantt.ganttcenter.AutoScrollViewPager>
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
@@ -15,4 +38,4 @@
         android:stretchMode="columnWidth"
         android:numColumns="2"/>
 
-</RelativeLayout>
+</LinearLayout>

@@ -1,11 +1,10 @@
 package com.gantt.ganttcenter;
 
-import java.util.ArrayList;
-import com.gantt.ganttcenter.HBGCSocialNetworkObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by dzqbdf on 7/16/15.
@@ -23,10 +22,24 @@ public class HBGCSocialZoneObject extends HBGCZoneObject {
             JSONObject social = object.getJSONObject(Constants.SOCIAL_KEY);
             this.parseNetworks(social.getJSONArray(Constants.NETWORKS_KEY));
             this.setMessageToPost(social.getString(Constants.POST_KEY));
+
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    HBGCSocialZoneObject.this.setThumbnail(HBGCAppManager.createDrawableFromUrl(HBGCSocialZoneObject.this.getThumbnailUrl()));
+                }
+            });
+
+            thread.start();
+            thread.join();
         }
         catch(JSONException e)
         {
 
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 

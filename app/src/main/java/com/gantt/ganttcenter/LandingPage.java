@@ -23,10 +23,7 @@ public class LandingPage extends Activity {
                     .commit();
         }
 
-        GridView gridView = (GridView)findViewById(R.id.gridview);
-        gridView.setAdapter(new HBGCLandingPageAdapter(this));
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,7 +59,25 @@ public class LandingPage extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_landing_page, container, false);
+
+
+            GridView gridView = (GridView)rootView.findViewById(R.id.gridview);
+            gridView.setAdapter(new HBGCLandingPageAdapter(getActivity(),HBGCAppManager.AppManager().getZones()));
+
+            this.setupLandingPageHeaderScroll(rootView);
+
             return rootView;
+        }
+
+        private void setupLandingPageHeaderScroll(View view)
+        {
+            AutoScrollViewPager pager = (AutoScrollViewPager) view.findViewById(R.id.autoscroll);
+
+            pager.setAdapter(new ImagePagerAdapter(getActivity(),HBGCAppManager.AppManager().getEvents()));
+
+            pager.setInterval(2000);
+            pager.startAutoScroll();
+
         }
     }
 }

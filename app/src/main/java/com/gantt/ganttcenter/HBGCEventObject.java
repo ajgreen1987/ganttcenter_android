@@ -11,7 +11,26 @@ public class HBGCEventObject extends HBGCHeaderObject
     {
         super(url);
 
-        this.setWebsite(eventWebsite);
+        try {
+            this.setWebsite(eventWebsite);
+
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    HBGCEventObject.this.setThumbnail(HBGCAppManager.createDrawableFromUrl(HBGCEventObject.this.getThumbnailURL()));
+                }
+            });
+
+            thread.start();
+            thread.join();
+
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+
     }
 
     public String getWebsite() {

@@ -1,5 +1,7 @@
 package com.gantt.ganttcenter;
 
+import android.graphics.drawable.Drawable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 public class HBGCZoneObject {
 
     private String thumbnailUrl;
+    private Drawable thumbnail;
     private String zoneDescription;
     private ArrayList<String> headerImages;
     private ArrayList<HBGCContentObject> content;
@@ -25,10 +28,24 @@ public class HBGCZoneObject {
             this.setZoneDescription(object.getString(Constants.DESCRIPTION_KEY));
             this.parseOutHeaders(object.getJSONArray(Constants.HEADERS_KEY));
             this.parseOutContent(object.getJSONArray(Constants.CONTENT_KEY));
+
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    HBGCZoneObject.this.setThumbnail(HBGCAppManager.createDrawableFromUrl(HBGCZoneObject.this.getThumbnailUrl()));
+                }
+            });
+
+            thread.start();
+            thread.join();
+
         }
         catch(JSONException e)
         {
 
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
 
 
@@ -40,6 +57,16 @@ public class HBGCZoneObject {
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public Drawable getThumbnail()
+    {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Drawable thumbnail)
+    {
+        this.thumbnail = thumbnail;
     }
 
     public String getZoneDescription() {
